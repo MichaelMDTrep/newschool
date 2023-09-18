@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main id="main">
+
+<section class="section pb-5">
+    <div class="container">
+
+    <div class="row mb-5 align-items-end">
+        <div class="col-md-6" data-aos="fade-up">
+        <h2>Edit Course</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
+
+        <form action="{% url 'edit_course' course.id %}" method="post" role="form" class="php-email-form">
+            {% csrf_token %}
+            <div class="row gy-3">
+            <div class="col-md-12 form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" class="form-control" id="name" value="{{ course.title }}" required>
+            </div>
+            <div class="col-md-12 form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description" cols="30" rows="10" id="description" required>{{ course.content }}</textarea>
+            </div>
+            <div class="col-md-12 form-group">
+                <label for="category">Category</label>
+                <select name="category" id="category" class="form-control" required>
+                    <option value="">---------</option>
+                    {% for category in course_categories %}
+                    {% if course.category.id == category.id %}
+                    <option value="{{ category.id }}" selected>{{ category.friendly_name }}</option>
+                    {% else %}
+                    <option value="{{ category.id }}">{{ category.friendly_name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6 mt-4 form-group" style="margin: 0 auto;">
+                <input type="submit" class="readmore d-block" style="width: 200px; margin: 0 auto;" value="Save Changes">
+            </div>
+            </div>
+
+        </form>
+
+        </div>
+
+    </div>
+
+    </div>
+
+</section>
+
+</main><!-- End #main -->
+
+{% endblock %}
